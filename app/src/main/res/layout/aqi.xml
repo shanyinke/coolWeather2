@@ -34,14 +34,14 @@
 
                 <TextView
                     android:id="@+id/aqi_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="#fff"
                     android:textSize="40sp"/>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AQI指数"
                     android:layout_gravity="center"
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:id="@+id/pm25_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="#fff"

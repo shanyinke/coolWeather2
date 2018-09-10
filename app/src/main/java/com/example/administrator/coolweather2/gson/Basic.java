@@ -3,7 +3,7 @@ package com.example.administrator.coolweather2.gson;
 import com.google.gson.annotations.SerializedName;
 
 public class Basic {
-    @SerializedName("City")
+    @SerializedName("city")
     public String cityName;
     @SerializedName("id")
     public String weatherId;
