@@ -2,7 +2,9 @@ package com.example.administrator.coolweather2;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +99,10 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 }else if (currentLevel == LEVEL_COUNTY){//跳转到天气界面
                     String weatherId = countyList.get(position).getWeatherId();
+                    //保存天气ID,解决刷新天气的时候，读取的是旧缓存的问题
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                    editor.putString("weatherId",weatherId);
+                    editor.apply();
                     if(getActivity() instanceof MainActivity) {
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
                         intent.putExtra("weather_id", weatherId);

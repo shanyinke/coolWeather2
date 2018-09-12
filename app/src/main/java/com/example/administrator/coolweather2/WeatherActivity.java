@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +79,7 @@ public class WeatherActivity extends AppCompatActivity {
         navButton = (Button) findViewById(R.id.nav_button);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = preferences.getString("weather",null);
+
         final String weatherId;
         if(weatherString != null) {
             //有缓存时直接解析天气数据
@@ -96,6 +98,11 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+              //  Toast.makeText(WeatherActivity.this,weatherId,Toast.LENGTH_SHORT).show();
+              //  Log.d("WeatherActivity",weatherId);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+                String weatherId = preferences.getString("weatherId",null);
+                //获取上次的weatherId
                 requestWeather(weatherId);
             }
         });
@@ -139,13 +146,13 @@ public class WeatherActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(weather != null && "ok".equals(weather.status)){
+                        if(weather != null && "ok".equals(weather.status)){//获取天气信息成功，缓存数据
                             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(
                                     WeatherActivity.this
                             ).edit();
                             editor.putString("weather",resposeText);
                             editor.apply();
-                            showWertherInfo(weather);
+                            showWertherInfo(weather);//把信息显示到界面上
 
                         }else {
                             Toast.makeText(WeatherActivity.this,"获取天气信息失败",Toast.LENGTH_SHORT).show();
